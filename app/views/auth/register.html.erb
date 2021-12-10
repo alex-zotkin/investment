@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag 'auth_register', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="content">
+  <form action="/register" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <h3>Создать новую учетную запись</h3>
+
+
+    <% if @user.errors.any? %>
+        <ul id="errors">
+          <% @user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+    <% end %>
+
+
+    <label for="name">Имя</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="lastname">Фамилия</label>
+    <input type="text" name="lastname" id="lastname" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="pass">Пароль</label>
+    <input type="password" name="pass" id="pass" required>
+
+    <button class="button button_blue">Создать</button>
+    <p>Уже есть учетная запись? <a href="/login" class="link">Войдите</a></p>
+  </form>
+</div>

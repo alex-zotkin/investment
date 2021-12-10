@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'auth_register', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="content">
+  <form action="/login" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <h3>Вход в учетную запись</h3>
+
+    <% unless @err.nil?%>
+      <ul id="errors">
+        <li><%= @err %></li>
+      </ul>
+    <% end %>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="pass">Пароль</label>
+    <input type="password" name="pass" id="pass" required>
+
+    <button class="button button_blue">Войти</button>
+    <p>Еще нет учетной записи? <a href="/register" class="link">Создайте ее!</a></p>
+  </form>
+</div>

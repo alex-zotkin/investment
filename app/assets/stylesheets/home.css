@@ -1,0 +1,31 @@
+.content_box{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content_box .info{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.content_box .info p{
+    font-size: 18px;
+}
+
+.content_box .info .button{
+    margin-top: 15px;
+}
+
+.content_box .img{
+    width: 400px;
+    height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("https://media.lesechos.com/api/v1/images/view/5d6549b63e4546618b303e05/1280x720/0601775749885-web-tete.jpg");
+}
