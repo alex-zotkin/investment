@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_220408) do
+ActiveRecord::Schema.define(version: 2021_12_11_153309) do
+
+  create_table "investments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.float "rate", null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer "investment_id"
+    t.integer "user_id"
+    t.datetime "date", null: false
+    t.integer "quantity", null: false
+    t.float "coast", null: false
+    t.index ["investment_id"], name: "index_purchases_on_investment_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
