@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag 'profile', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'auth_register', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="content">
+  <form action="/profile" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <h3>Профиль</h3>
+
+    <div class="img_box">
+      <img src="<%= @current_user[:img] %>">
+    </div>
+
+    <label for="img">Адрес изображения из интернета</label>
+    <input type="text" id="img" name="img" autocomplete="off">
+
+    <label for="name">Имя</label>
+    <input type="text" name="name" id="name" required value="<%= @current_user[:name] %>">
+
+    <label for="lastname">Фамилия</label>
+    <input type="text" name="lastname" id="lastname" required value="<%= @current_user[:lastname] %>">
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required disabled value="<%= @current_user[:email] %>">
+
+    <button class="button button_blue">Сохранить</button>
+  </form>
+</div>

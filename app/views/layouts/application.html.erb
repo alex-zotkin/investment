@@ -18,7 +18,7 @@
     <div class="header">
       <div class="header_box">
         <a href="/"><h3>ПОРТФЕЛЬ ИНВЕСТОРА</h3></a>
-        <% if cookies[:name].nil? %>
+        <% if @current_user.nil? %>
           <div class="login">
             <a href="/login" class="button">Войти</a>
             <a href="/register" class="button">Создать кабинет</a>
@@ -28,7 +28,8 @@
 
           <div class="login">
             <a href="/investment" class="button">Портфель</a>
-            <a href="/profile" class="button"><%= cookies[:name]%></a>
+            <a href="/profile">
+              <img src="<%= @current_user[:img] %>" style=" border-radius: 100%; width: 35px; height: 35px; margin-bottom: -12px;"></a>
             <a href="/logout" class="button">Выйти</a>
           </div>
 

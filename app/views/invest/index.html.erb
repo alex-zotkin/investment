@@ -1,0 +1,82 @@
+<%= stylesheet_link_tag 'investment', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="content">
+  <div class="courses">
+    <h2>Курсы валют</h2>
+    <p>{{data.Date}}</p>
+    <table>
+      <tr>
+        <th>Код</th>
+        <th>Валюта</th>
+        <th>Курс</th>
+        <th>Рост</th>
+      </tr>
+      <tr v-for="v in data.Valute">
+        <td>{{v.CharCode}}</td>
+        <td>{{v.Name}}</td>
+        <td>{{v.Value}}</td>
+        <td v-bind:style="{color: ((v.Previous - v.Value) <= 0) ? 'red' : 'green' }">{{(v.Previous - v.Value).toFixed(4)}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box">
+    <ul class="sum">
+      <li style="background: #d5e7ff">
+        <span>Сумарная стоимость</span>
+        <h2><ion-icon name="cash-outline" style="margin-bottom: -5px;"></ion-icon>&nbsp;&nbsp; {{investData.sumcoast}}Р</h2>
+      </li>
+      <li style="background: #b0fdb0">
+        <span>Сумарный доход</span>
+        <h2><ion-icon name="wallet-outline" style="margin-bottom: -5px;"></ion-icon>&nbsp;&nbsp; {{investData.sumincome}}Р</h2>
+      </li>
+    </ul>
+
+    <div class="table_box">
+      <h2>Ваши активы</h2>
+      <p v-if="investData.invests.length == 0"><i>Вы не купили ни одной валюты</i></p>
+
+      <table v-if="investData.invests.length != 0">
+        <tr>
+          <th>Код</th>
+          <th>Название</th>
+          <th>Количество</th>
+          <th>Курс</th>
+          <th>Доход</th>
+        </tr>
+        <tr v-for="(invest, index) in investData.invests">
+          <td>{{invest.code}}</td>
+          <td><a href="/" style="text-decoration: underline; color: blue;">{{invest.name}}</a></td>
+          <td><input type="number" min="0" :value="invest.count" style="width: 50px" v-on:change="setInvestCount(invest.id, $event)"></td>
+          <td>{{invest.coast}}</td>
+          <td>{{invest.income}}</td>
+          <td><ion-icon name="trash-outline" style="cursor: pointer; color: red; font-size: 20px;" v-on:click="deleteInvest(invest.id)"></ion-icon></td>
+        </tr>
+      </table>
+
+      <div class="button_box">
+        <div class="button button_blue" v-on:click="addOpen = true">Добавить &nbsp; <ion-icon name="add-circle" style="font-size: 22px; margin-bottom: -5px;"></ion-icon></div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="dark" v-if="addOpen">
+    <div class="dark_box">
+      <h2>Добавление валюты в портфель</h2>
+      <select name="valute" style="margin-bottom: 20px; width: 98%;" v-model="addData.code">
+        <option v-for="v in data.Valute" :value="v.CharCode">{{v.Name}} - {{v.Value}}</option>
+      </select>
+      <label for="count">Количество</label>&nbsp;&nbsp;<br>
+      <input type="number" id="count" name="count" style="width: 92%; margin-top: 15px;" v-model="addData.count">
+      <div class="button_box">
+        <div class="button button_blue" v-on:click="add">Добавить &nbsp; <ion-icon name="add-circle" style="font-size: 22px; margin-bottom: -5px;"></ion-icon></div>
+        <div class="button button_red" v-on:click="addOpen = false">Отмена &nbsp; <ion-icon name="close-outline" style="font-size: 22px; margin-bottom: -5px;"></ion-icon></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag('investment') %>

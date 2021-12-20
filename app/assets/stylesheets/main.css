@@ -37,7 +37,7 @@ button{
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-input{
+input, select{
     font-family: 'Source Sans Pro', sans-serif;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.8);
@@ -56,6 +56,8 @@ ul{
 
 
 .button{
+    text-align: center;
+    cursor: pointer;
     padding: 8px 12px;
     transition: all 0.15s ease-in-out;
     border-radius: 5px;
@@ -67,6 +69,11 @@ ul{
     color: white;
 }
 
+.button_red{
+    background-color: #ec3333;
+    color: white;
+}
+
 .button:hover{
     background-color: rgba(0, 0, 0, 0.05);
 }
@@ -75,6 +82,10 @@ ul{
     background-color: rgba(0, 0, 168, 0.85);
 }
 
+.button_red:hover{
+    background-color: #f82a2a;
+    color: white;
+}
 
 
 

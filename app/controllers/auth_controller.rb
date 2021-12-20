@@ -1,29 +1,37 @@
 require 'digest'
 
 class AuthController < ApplicationController
+  cur_user = nil
+
   def register
 
-    if cookies[:name]
+    @user = User.new
+
+    if session[:id]
       redirect_to '/investment'
     end
 
-    @user = User.new(name: params[:name],
-                      lastname: params[:lastname],
-                      email: params[:email],
-                      password: params[:pass])
-
-    if @user.save
-      cookies[:name] = @user[:name] + " " + @user[:lastname]
-      cookies[:email] = @user[:email]
-      cookies[:pass] = @user[:password]
-      redirect_to '/investment'
-    end
   end
 
 
+  def create
+    @user = User.new(name: params[:name],
+                     lastname: params[:lastname],
+                     email: params[:email],
+                     password: Digest::MD5.hexdigest(params[:pass]),
+                     img: "https://i.gifer.com/2GU.gif")
+
+    if @user.save
+      session[:id] = @user.id
+      redirect_to '/investment'
+    else
+      render template: 'auth/register';
+    end
+  end
+
   #Страница входа Digest::MD5.hexdigest(
   def login
-    if cookies[:name]
+    if session[:id]
       redirect_to '/investment'
     end
 
@@ -33,15 +41,13 @@ class AuthController < ApplicationController
         @err = 'Пользователя с таким email не существует'
         return
       end
-      if user[:password] != params[:pass]
+      if user[:password] != Digest::MD5.hexdigest(params[:pass])
         @err = 'Неправильное имя / пароль'
         return
       end
 
 
-      cookies[:name] = user[:name] + " " + user[:lastname]
-      cookies[:email] = user[:email]
-      cookies[:pass] = user[:password]
+      session[:id] = user[:id]
 
       redirect_to '/investment'
 
@@ -50,10 +56,7 @@ class AuthController < ApplicationController
 
 
   def logout
-    cookies.delete(:name)
-    cookies.delete(:email)
-    cookies.delete(:pass)
-
+    session.delete(:id)
     redirect_to '/'
   end
 end

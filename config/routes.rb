@@ -5,15 +5,17 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#login'
 
   get '/register', to: 'auth#register'
-  post '/register', to: 'auth#register'
+  post '/register', to: 'auth#create'
 
   get '/logout', to: 'auth#logout'
 
-  get '/investment', to: 'investment#index'
-  get '/investment/:isin', to: 'investment#show'
-  get '/investment/add', to: 'investment#add'
-  post '/investment/add', to: 'investment#add'
+  get '/investment', to: 'invest#index'
+  post '/investment/add', to: 'invest#add'
+  post '/investment/allinfoaboutuser', to: 'invest#allInfoAboutUser'
+  post '/investment/setinvestcount', to: 'invest#setInvestCount'
+  delete '/investment/deleteinvest/:id', to: 'invest#delete'
 
   get '/profile', to: 'profile#index'
+  post '/profile', to: 'profile#save'
 
 end
